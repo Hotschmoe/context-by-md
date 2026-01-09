@@ -1,54 +1,118 @@
-# Context Task Operations
+# Context Task
 
-Quick task management operations. Use natural language after the command.
+Quick task operations and action planning.
 
-## Usage Examples
-
+## Usage
 ```
-/context-task add P1 bug: Login fails when password has special chars
-/context-task done "Implement user auth"
-/context-task block "API integration" waiting for credentials
-/context-task ready "Database migration"
-/context-task find ready      # List all ready tasks
-/context-task find blocked    # List all blocked tasks
+/context-task start User auth          # Interview + plan active task
+/context-task add P1: User auth | JWT  # Add to PLAN.md
+/context-task done User auth           # Mark complete
+/context-task block Payments | waiting: API keys
+/context-task ready Payments
+/context-task decide "Use JWT vs sessions" | chose JWT | stateless, simpler
+/context-task checkpoint               # Record progress in ACTIONPLAN.md
+/context-task finish                   # Archive ACTIONPLAN.md, mark done
+/context-task find ready
 ```
 
-## Operations
+---
 
-### Add New Task
-Add to PLAN.md under current epic:
+## Start Task (Interview Flow)
+
+When user runs `/context-task start "Task name"`:
+
+### 1. Update ACTIONPLAN.md Header
 ```markdown
-### [READY] P{priority}: {description}
-**Added:** {timestamp}
-**Notes:** {any context}
+> **Task:** Task name | **Started:** YYYY-MM-DD | **Status:** Planning
+```
+
+### 2. Run Interview (ask user these questions)
+
+**Goal & Scope:**
+- What's the goal? What does "done" look like?
+- What's explicitly OUT of scope?
+- Any hard constraints? (tech, time, dependencies)
+
+**Unknowns:**
+- What don't we know yet? Any risks?
+- External dependencies or blockers?
+
+**Decomposition:**
+- Can you describe the main steps?
+- What's the very first concrete action?
+
+### 3. Record Answers in ACTIONPLAN.md
+
+Fill in sections:
+- Goal & Definition of Done
+- Scope (in/out)
+- Constraints
+- Unknowns & Risks
+- Decomposition (subtasks)
+- First concrete step
+
+### 4. Identify Checkpoints
+
+Based on interview, add decision checkpoints:
+```markdown
+## Checkpoints
+- [ ] **After auth design:** JWT or sessions? Refresh token strategy?
+- [ ] **After basic login works:** Add OAuth or ship MVP first?
+```
+
+### 5. Update PLAN.md
+
+Change task status: `[READY]` → `[WIP]`
+
+### 6. Confirm Ready
+
+Tell user: "Ready to start. First step: [X]. Proceed?"
+
+---
+
+## Other Operations
+
+### Add Task
+Add to PLAN.md "Active Sprint":
+```markdown
+- [READY] P#: Title | context | next: action
 ```
 
 ### Mark Done
-In PLAN.md:
-1. Change status to [DONE]
-2. Move to "Completed This Sprint" section
-3. Add completion date
+1. `[WIP]` → `[DONE]` in PLAN.md
+2. Move to "Done (This Sprint)"
 
-### Block Task
-In PLAN.md:
-1. Change status to [BLOCKED]
-2. Add/update "Blocked by:" line
+### Block / Ready
+Update status and blocker in PLAN.md
 
-### Unblock / Ready
-In PLAN.md:
-1. Change status to [READY]
-2. Remove "Blocked by:" line
+### Decide (during work)
+Add to ACTIONPLAN.md Decisions table:
+```markdown
+| Use JWT vs sessions | JWT | Stateless, simpler scaling | 01-09 |
+```
+
+### Checkpoint (during work)
+Update ACTIONPLAN.md:
+- Check off completed subtasks
+- Add any new decisions
+- Note current state in Interview Log section
+
+### Finish Task
+1. Archive ACTIONPLAN.md to `.context-by-md/archive/plans/YYYY-MM-DD_task-name.md`
+2. Clear ACTIONPLAN.md for next task
+3. Mark task [DONE] in PLAN.md
+4. Move to "Done (This Sprint)"
 
 ### Find Tasks
-Scan PLAN.md and report matching tasks with their status.
+Scan PLAN.md, report matching by status
+
+---
 
 ## For Discovered Work
 
-If discovering something during other work, add to BACKLOG.md instead:
-
+Add to BACKLOG.md (not PLAN.md):
 ```markdown
-### [P{0-3}] {Bug|Debt|Feature}: {Description}
-**Discovered:** {timestamp} during {what you were doing}
-**File:** {path}:{line} (if applicable)
-**Details:** {explanation}
+- [BUG] P#: Description | file:line | details
+- [DEBT] P#: Description | why | impact
+- [IDEA] Description | value
 ```

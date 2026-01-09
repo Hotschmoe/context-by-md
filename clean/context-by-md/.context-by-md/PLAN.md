@@ -1,80 +1,61 @@
-# Action Plan
+# Plan
 
-> **Last Updated:** 2026-01-08
-> **Status:** [READY] Active
+> **Updated:** 2026-01-08 | **Sprint:** _name/dates_
 
 ## Legend
-
-| Symbol | Meaning |
-|--------|---------|
-| [DONE] | Done |
-| [READY] | Ready (no blockers) |
-| [WIP] | In Progress |
-| [BLOCKED] | Blocked |
-| [PAUSED] | Paused/Deferred |
-| [ABANDONED] | Abandoned |
-
-**Priority:** P0 = Critical, P1 = High, P2 = Medium, P3 = Low
+`[READY]` Ready | `[WIP]` In Progress | `[BLOCKED]` Blocked | `[DONE]` Done | `[PAUSED]` Paused
+Priority: P0=Critical P1=High P2=Medium P3=Low
 
 ---
 
-## Active Epic: _[Epic Name]_
+## Active Sprint
 
-> **Goal:** _[What success looks like]_
-> **Started:** _[Date]_
+<!-- One line per task: [STATUS] P#: Title | brief context | next action or blocker -->
 
-### [READY] P1: Task Name Here
-<!-- Description of what needs to be done -->
+_No active tasks. Add with `/context-task add`_
 
-- [ ] Subtask 1
-- [ ] Subtask 2
-- [ ] Subtask 3
-
-**Notes:** _Any context, blockers, or decisions_
-
-### [WIP] P2: Another Task
-<!-- Currently being worked on -->
-
-- [x] Completed subtask
-- [ ] Remaining work
-
-**Blocked by:** _Nothing_
-**Notes:** _In progress as of session X_
-
-### [BLOCKED] P1: Blocked Task
-<!-- Cannot proceed until blocker resolved -->
-
-- [ ] Waiting for something
-
-**Blocked by:** Dependency on external API response
-**Notes:** _Filed issue #123_
+<!-- Example:
+- [WIP] P1: User auth | JWT approach | next: session management
+- [READY] P2: Rate limiting | token bucket | next: implement middleware
+- [BLOCKED] P1: Payments | Stripe | waiting: API keys from client
+-->
 
 ---
 
-## Completed This Sprint
+## Task Notes
 
-### [DONE] Task That's Done
-- [x] All subtasks
-- [x] Completed
+<!-- 2-3 lines per task that needs detail. Reference by task title. -->
 
-**Completed:** 2026-01-07
-**Notes:** _Brief summary of outcome_
+_No notes yet._
+
+<!-- Example:
+### User auth
+Using JWT with 15min access + 7day refresh tokens. Login endpoint done.
+Decision: No OAuth for MVP, add later. See docs/auth-design.md.
+
+### Payments
+Blocked since 01-05. Emailed client twice. Fallback: use Stripe test mode.
+-->
 
 ---
 
-## How To Use This File
+## Done (This Sprint)
 
-**Claude maintains this file by:**
-1. Moving tasks between status sections as work progresses
-2. Checking off subtasks as they're completed
-3. Adding new tasks discovered during work
-4. Updating "Blocked by" notes when dependencies arise
+<!-- Move here when complete, clear to archive weekly -->
 
-**Finding ready work:**
-1. Look for [READY] items (no blockers)
-2. Sort by priority (P0 > P1 > P2 > P3)
-3. Pick the highest priority ready item
+_None yet._
 
-**On session start:** Claude scans for [READY] items and continues highest priority.
+<!-- Example:
+- [DONE] P1: Database schema | completed 01-07
+- [DONE] P2: Logging setup | completed 01-06
+-->
 
-**Dependency tracking:** Use "Blocked by:" notes. When blocker resolves, change [BLOCKED] to [READY].
+---
+
+## Archive
+
+Completed tasks archived to `.context-by-md/archive/done-YYYY-MM.md`
+
+| Month | Tasks | Archived |
+|-------|-------|----------|
+| _none_ | | |

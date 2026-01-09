@@ -4,70 +4,65 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**context-by-md** is a lightweight markdown-based context management system for Claude Code. It provides session continuity across context window limits without requiring external dependencies like databases or daemons.
+**context-by-md** is a lightweight markdown-based context management system for Claude Code. Provides session continuity across context window limits without external dependencies.
 
-The philosophy: achieve 80% of the value of complex context systems with 20% of the complexity using plain markdown files that are human-readable and git-friendly.
+Philosophy: 80% of the value with 20% of the complexity using plain markdown.
 
 ## Repository Structure
 
 ```
 context-by-md/
-├── README.md                    # Project documentation
-└── clean/context-by-md/         # The installable package
-    ├── CLAUDE.md                # Instructions appended to user's CLAUDE.md on install
-    ├── install.ps1              # Local install script (Windows)
-    ├── install-remote.ps1       # Remote one-line install (Windows)
-    ├── .context-by-md/          # Context files template
-    │   ├── CURRENT.md           # Active work state
-    │   ├── PLAN.md              # Task tracking with status markers
-    │   ├── BACKLOG.md           # Future work, bugs, ideas
-    │   └── sessions/            # Session logs
+├── README.md
+└── clean/context-by-md/         # Installable package
+    ├── CLAUDE.md                # Installed to user projects
+    ├── install.ps1              # Local install (Windows)
+    ├── install-remote.ps1       # One-line remote install
+    ├── .context-by-md/
+    │   ├── CURRENT.md           # Session state
+    │   ├── PLAN.md              # Task list (terse)
+    │   ├── ACTIONPLAN.md        # Active task detail
+    │   ├── BACKLOG.md           # Bugs, debt, ideas
+    │   └── sessions/
     └── .claude/
         ├── commands/            # Slash commands
-        │   ├── context-start.md
-        │   ├── context-checkpoint.md
-        │   └── context-task.md
-        ├── hooks/               # Auto-checkpoint hooks
-        │   ├── context-start.ps1
-        │   └── context-stop.ps1
-        └── settings.local.json  # Hook configuration
+        ├── hooks/               # Auto-checkpoint on stop
+        └── settings.local.json
 ```
 
-## How the System Works
+## Key Concepts
 
-1. **Session Start**: User runs `/context-start`, Claude reads CURRENT.md and PLAN.md to understand what was being worked on
-2. **During Work**: Claude updates CURRENT.md periodically and tracks tasks in PLAN.md
-3. **Session End**: Stop hook reminds Claude to run `/context-checkpoint`, which saves state and creates a session log
-4. **On Compaction**: Claude reads CURRENT.md "Immediate Next Steps" and continues seamlessly
+### Task Format (PLAN.md - Terse)
+```markdown
+- [WIP] P1: Task title | context | next: action
+- [READY] P2: Another task | details | next: first step
+```
 
-### Key Files (in installed projects)
+### Action Planning (ACTIONPLAN.md - Detailed)
+When starting a task, `/context-task start` runs an interview:
+- Goal & definition of done
+- Scope (in/out)
+- Constraints & unknowns
+- Decomposition into subtasks
+- Decision checkpoints
 
-| File | Purpose |
-|------|---------|
-| `.context-by-md/CURRENT.md` | Active focus, next steps, critical context |
-| `.context-by-md/PLAN.md` | Task tracking with [READY]/[WIP]/[BLOCKED]/[DONE] status |
-| `.context-by-md/BACKLOG.md` | Discovered bugs, tech debt, future improvements |
-| `.context-by-md/sessions/*.md` | Historical session logs |
+Only the active task gets this detail. Archived when task completes.
 
-### Slash Commands
+### Status Markers
+`[READY]` `[WIP]` `[BLOCKED]` `[DONE]` `[PAUSED]`
 
-- `/context-start` - Read context files and orient to current state
-- `/context-checkpoint` - Save current state to context files and create session log
-- `/context-task` - Quick task operations (add, done, block, ready, find)
+### Priority
+P0=Critical, P1=High, P2=Medium, P3=Low
+
+## Archiving
+
+- Done tasks: `archive/done-YYYY-MM.md`
+- Action plans: `archive/plans/YYYY-MM-DD_task-name.md`
 
 ## Development
 
-This project has no build system, tests, or dependencies. Changes are made directly to the markdown and PowerShell files in `clean/context-by-md/`.
+No build system or dependencies. Edit files in `clean/context-by-md/`.
 
-### Testing Changes
-
-1. Install to a test project: `.\clean\context-by-md\install.ps1` from the test project directory
-2. Verify the slash commands work in Claude Code
-3. Check that hooks fire on session stop
-
-### Important Conventions
-
-- **Status markers in PLAN.md**: [READY], [WIP], [BLOCKED], [DONE], [PAUSED], [ABANDONED]
-- **Priority markers**: P0 (critical) through P3 (low)
-- **Timestamps**: Use ISO format (YYYY-MM-DD HH:MM)
-- **Session log naming**: `YYYY-MM-DD_HHMM.md`
+### Testing
+1. Install to test project: `.\clean\context-by-md\install.ps1`
+2. Test slash commands
+3. Verify hooks fire on stop

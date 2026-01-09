@@ -1,37 +1,23 @@
 # Context Start
 
-Read and internalize the current project context to continue work effectively.
+Read project context to continue work effectively.
 
-## Instructions
+## Steps
 
-1. **Read CURRENT.md** to understand:
-   - Active focus (what we're working on)
-   - Immediate next steps
-   - Critical context that must not be lost
-   - Key resources
-
-2. **Read PLAN.md** to understand:
-   - Current epic and its goal
-   - Ready tasks ([READY]) sorted by priority
-   - Blocked tasks and their blockers
-   - Recently completed work
-
-3. **Skim BACKLOG.md** for:
-   - Any high-priority bugs that should be promoted
-   - Context about technical debt
-
-4. **Orient and report:**
-   - Summarize current state in 2-3 sentences
-   - Identify the highest-priority ready task
-   - Ask if you should continue that task or if the user has other plans
+1. **Read CURRENT.md** - Active focus, next steps, critical context
+2. **Read PLAN.md** - Active Sprint tasks, find highest priority [READY]
+3. **Skim BACKLOG.md** - Any high-priority bugs to promote?
 
 ## After Reading
 
-Update CURRENT.md "Session Notes" with:
+Report in 2-3 sentences:
+- Current state summary
+- Highest priority ready task
+- Ask: continue that task or different plans?
+
+Update CURRENT.md Session Notes:
 ```markdown
 ## [...] Session Notes
-
-**Session started:** [timestamp]
-**Continuing from:** [last session summary if visible]
-**Plan:** [what you intend to work on]
+**Started:** [timestamp] | **Continuing:** [last session summary]
+**Plan:** [what you'll work on]
 ```

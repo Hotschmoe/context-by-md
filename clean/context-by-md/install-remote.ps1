@@ -23,7 +23,7 @@ if ((Test-Path ".context-by-md") -and (Test-Path ".context-by-md\CURRENT.md")) {
 
 # Create directories
 New-Item -ItemType Directory -Force -Path ".context-by-md\sessions" | Out-Null
-New-Item -ItemType Directory -Force -Path ".context-by-md\archive" | Out-Null
+New-Item -ItemType Directory -Force -Path ".context-by-md\archive\plans" | Out-Null
 New-Item -ItemType Directory -Force -Path ".claude\commands" | Out-Null
 New-Item -ItemType Directory -Force -Path ".claude\hooks" | Out-Null
 
@@ -31,6 +31,7 @@ New-Item -ItemType Directory -Force -Path ".claude\hooks" | Out-Null
 Write-Host "Downloading context files..."
 Invoke-RestMethod "$BaseUrl/.context-by-md/CURRENT.md" -OutFile ".context-by-md\CURRENT.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/PLAN.md" -OutFile ".context-by-md\PLAN.md"
+Invoke-RestMethod "$BaseUrl/.context-by-md/ACTIONPLAN.md" -OutFile ".context-by-md\ACTIONPLAN.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/BACKLOG.md" -OutFile ".context-by-md\BACKLOG.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/sessions/_template.md" -OutFile ".context-by-md\sessions\_template.md"
 
@@ -70,14 +71,15 @@ Write-Host ""
 Write-Host "Context system installed!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Files created:"
-Write-Host "  .context-by-md\CURRENT.md    - Active work state"
-Write-Host "  .context-by-md\PLAN.md       - Task tracking"
-Write-Host "  .context-by-md\BACKLOG.md    - Future work"
+Write-Host "  .context-by-md\CURRENT.md    - Session state"
+Write-Host "  .context-by-md\PLAN.md       - Task list (terse)"
+Write-Host "  .context-by-md\ACTIONPLAN.md - Active task detail"
+Write-Host "  .context-by-md\BACKLOG.md    - Bugs, debt, ideas"
 Write-Host "  .context-by-md\sessions\     - Session logs"
 Write-Host "  .claude\commands\            - Slash commands"
 Write-Host "  .claude\hooks\               - Auto-checkpoint on stop"
 Write-Host ""
 Write-Host "Next steps:"
 Write-Host "  1. Edit .context-by-md\CURRENT.md with your project info"
-Write-Host "  2. Add initial tasks to .context-by-md\PLAN.md"
-Write-Host "  3. Tell Claude to run /context-start"
+Write-Host "  2. Add tasks to PLAN.md: - [READY] P1: Task | context | next: action"
+Write-Host "  3. Run /context-start then /context-task start 'Task name'"

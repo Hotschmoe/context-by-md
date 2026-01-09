@@ -1,50 +1,28 @@
-# Session: 2026-01-08 14:30
+# Session: YYYY-MM-DD HHMM
 
-> **Duration:** ~X minutes
-> **Focus:** _Brief description of main work_
+> **Duration:** ~Xmin | **Focus:** _main work area_
 
 ## Summary
+_2-3 sentences on what was accomplished._
 
-_2-3 sentence summary of what was accomplished._
+## Completed
+- Task 1
+- Task 2
 
-## Work Completed
+## Decisions
+- **Decision:** _rationale_
 
-- [ ] Task 1
-- [ ] Task 2
+## Problems
+- **Issue:** _resolution/workaround_
 
-## Decisions Made
+## Discovered
+_Items added to BACKLOG.md_
 
-- **Decision:** _What was decided_
-  - **Rationale:** _Why_
-  - **Alternatives considered:** _What else we looked at_
-
-## Problems Encountered
-
-- **Issue:** _What went wrong_
-  - **Resolution:** _How we fixed it / workaround_
-
-## Discoveries
-
-<!-- Things noticed that were added to BACKLOG.md -->
-
-- _Bug found in X, filed to backlog_
-- _Idea for Y, added to backlog_
-
-## Context for Next Session
-
-_What the next session needs to know to continue effectively._
+## Next Session
+_What to continue, context needed_
 
 ## Files Changed
-
 ```
-path/to/file1.py
-path/to/file2.md
+path/to/file1
+path/to/file2
 ```
-
----
-
-## Raw Notes
-
-<!-- Moved from CURRENT.md "Session Notes" section -->
-
-_Notes from during the session..._

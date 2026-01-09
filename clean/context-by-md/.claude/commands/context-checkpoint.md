@@ -1,97 +1,77 @@
 # Context Checkpoint
 
-Save current state so the next session (or post-compaction continuation) can pick up seamlessly.
+Save current state for session continuity and compaction recovery.
 
 ## When To Run
-
-- End of session (automatically via Stop hook)
+- End of session (auto-prompted by Stop hook)
 - Before long operations that might hit context limits
-- When switching between major tasks
-- Periodically during long sessions (~every 30 min of work)
+- When switching major tasks
+- Every ~30 min during long sessions
 
-## Instructions
+## Quick Checkpoint
 
 ### 1. Update CURRENT.md
-
 ```markdown
-# Current Context
-
-> **Last Updated:** [NOW - ISO timestamp]
-> **Session:** [Brief description of what was happening]
+> **Last Updated:** [NOW] | **Session:** [brief description]
 
 ## [*] Active Focus
-
-[What we're ACTUALLY working on right now, not what we started with]
+[What you're working on NOW - 1-3 items]
 
 ## [-] Immediate Next Steps
-
-1. [Very next thing to do]
+1. [Very next action]
 2. [Then this]
-3. [Then this]
 
 ## [!] Critical Context
-
-[Anything that would be LOST if not written down]
-- Key decisions made this session
-- Important constraints discovered
-- State of work-in-progress
+[Decisions, constraints, WIP state - things that would be LOST]
 
 ## [~] Key Resources
-
-[Files currently relevant]
-
-## [...] Session Notes
-
-[Move existing notes to session log, add final notes here]
+[Currently relevant files/links]
 ```
 
-### 2. Update PLAN.md
-
+### 2. Update ACTIONPLAN.md (if task active)
 - Check off completed subtasks
-- Update task statuses ([READY]->[WIP]->[DONE] etc)
-- Add any new tasks discovered
-- Update "Blocked by" notes if blockers resolved
+- Add any decisions to Decisions table
+- Update status if needed
 
-### 3. Update BACKLOG.md
+### 3. Update PLAN.md
+- Update task statuses: `[READY]`→`[WIP]`→`[DONE]`
+- Move completed to "Done (This Sprint)"
 
-- Add any bugs discovered
-- Add any technical debt noticed
-- Add any ideas that came up
+### 4. Update BACKLOG.md
+Add any discovered bugs/debt/ideas
 
-### 4. Create Session Log (end of session only)
+---
 
-Create `.context-by-md/sessions/YYYY-MM-DD_HHMM.md` using template:
+## End of Session (add these)
 
+### 5. Create Session Log
+`.context-by-md/sessions/YYYY-MM-DD_HHMM.md`:
 ```markdown
 # Session: [timestamp]
-
-> **Duration:** ~X minutes
-> **Focus:** [main work area]
+> **Duration:** ~Xmin | **Focus:** [main work]
 
 ## Summary
-[2-3 sentences on what was accomplished]
+[2-3 sentences]
 
-## Work Completed
-- [x] Thing done
-- [ ] Thing started but not finished
+## Completed
+- Task 1
 
-## Decisions Made
-[Any significant choices and rationale]
+## Decisions
+- [Decision]: [rationale]
 
-## Context for Next Session
-[What's needed to continue]
+## Next Session
+[What to continue]
 ```
 
-### 5. Final Check
+### 6. Archive Check
+**Done tasks (weekly):** If 5+ in "Done (This Sprint)":
+→ Move to `archive/done-YYYY-MM.md`
 
-- [ ] CURRENT.md reflects actual current state
-- [ ] PLAN.md tasks are accurate
-- [ ] No lost context - everything important is written down
-- [ ] Session log created (if ending session)
+**Action plans:** Only archive via `/context-task finish` when task completes
+
+---
 
 ## On Compaction
-
-If you're running this because of compaction warning:
-1. Complete all steps above
-2. Read CURRENT.md
-3. Continue with the next step from "Immediate Next Steps"
+1. Run this checkpoint
+2. Read CURRENT.md + ACTIONPLAN.md (if active)
+3. Continue from "Immediate Next Steps" / current subtask
