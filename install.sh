@@ -24,6 +24,7 @@ fi
 mkdir -p .context-by-md/sessions
 mkdir -p .context-by-md/archive
 mkdir -p .claude/commands
+mkdir -p .claude/hooks
 
 # Copy context files
 cp "$SCRIPT_DIR/.context-by-md/CURRENT.md" .context-by-md/
@@ -34,12 +35,16 @@ cp "$SCRIPT_DIR/.context-by-md/sessions/_template.md" .context-by-md/sessions/ 2
 # Copy Claude commands
 cp "$SCRIPT_DIR/.claude/commands/"*.md .claude/commands/
 
-# Copy or merge settings
+# Copy hooks (bash versions for Unix)
+cp "$SCRIPT_DIR/.claude/hooks/"*.sh .claude/hooks/
+chmod +x .claude/hooks/*.sh
+
+# Copy or merge settings (use Unix version)
 if [ -f .claude/settings.local.json ]; then
     echo "[!] .claude/settings.local.json exists - please manually add hooks"
-    echo "   See $SCRIPT_DIR/.claude/settings.local.json for reference"
+    echo "    See $SCRIPT_DIR/.claude/settings.local.unix.json for reference"
 else
-    cp "$SCRIPT_DIR/.claude/settings.local.json" .claude/
+    cp "$SCRIPT_DIR/.claude/settings.local.unix.json" .claude/settings.local.json
 fi
 
 # Add CLAUDE.md content or create it
@@ -63,6 +68,7 @@ echo "  .context-by-md/PLAN.md       - Task tracking"
 echo "  .context-by-md/BACKLOG.md    - Future work"
 echo "  .context-by-md/sessions/     - Session logs"
 echo "  .claude/commands/            - Slash commands"
+echo "  .claude/hooks/               - Auto-checkpoint on stop"
 echo ""
 echo "Next steps:"
 echo "  1. Edit .context-by-md/CURRENT.md with your project info"

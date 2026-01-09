@@ -23,6 +23,7 @@ if ((Test-Path ".context-by-md") -and (Test-Path ".context-by-md\CURRENT.md")) {
 New-Item -ItemType Directory -Force -Path ".context-by-md\sessions" | Out-Null
 New-Item -ItemType Directory -Force -Path ".context-by-md\archive" | Out-Null
 New-Item -ItemType Directory -Force -Path ".claude\commands" | Out-Null
+New-Item -ItemType Directory -Force -Path ".claude\hooks" | Out-Null
 
 # Copy context files
 Copy-Item "$ScriptDir\.context-by-md\CURRENT.md" ".context-by-md\"
@@ -35,7 +36,10 @@ if (Test-Path "$ScriptDir\.context-by-md\sessions\_template.md") {
 # Copy Claude commands
 Copy-Item "$ScriptDir\.claude\commands\*.md" ".claude\commands\"
 
-# Copy or merge settings
+# Copy hooks (PowerShell versions for Windows)
+Copy-Item "$ScriptDir\.claude\hooks\*.ps1" ".claude\hooks\"
+
+# Copy or merge settings (Windows version with PowerShell hooks)
 if (Test-Path ".claude\settings.local.json") {
     Write-Host "  .claude\settings.local.json exists - please manually add hooks" -ForegroundColor Yellow
     Write-Host "   See $ScriptDir\.claude\settings.local.json for reference" -ForegroundColor Yellow

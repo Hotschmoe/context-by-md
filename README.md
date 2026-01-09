@@ -7,8 +7,8 @@ A lightweight alternative to beads using plain markdown files and Claude Code ho
 Beads is powerful but complex (Go binary, SQLite + JSONL, daemon, git hooks, etc.). 
 This system achieves 80% of the value with 20% of the complexity by using:
 - Plain markdown files (human-readable, git-friendly)
-- Claude Code hooks (session start/stop automation)
-- Simple conventions Claude can follow
+- Claude Code slash commands for context management
+- Simple conventions Claude follows via CLAUDE.md instructions
 
 ## Directory Structure
 
