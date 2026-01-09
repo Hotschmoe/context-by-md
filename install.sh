@@ -7,6 +7,19 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "Installing markdown context system..."
 
+# Check for existing installation
+if [ -d ".context-by-md" ] && [ -f ".context-by-md/CURRENT.md" ]; then
+    echo ""
+    echo "[!] Existing context-by-md installation detected."
+    echo "    This will overwrite your context files (CURRENT.md, PLAN.md, BACKLOG.md)."
+    read -p "    Continue? [y/N] " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "[*] Installation cancelled."
+        exit 1
+    fi
+fi
+
 # Create directories
 mkdir -p .context-by-md/sessions
 mkdir -p .context-by-md/archive

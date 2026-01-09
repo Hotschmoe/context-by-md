@@ -9,6 +9,18 @@ $BaseUrl = "https://raw.githubusercontent.com/$Repo/$Branch"
 
 Write-Host "Installing context-by-md..." -ForegroundColor Cyan
 
+# Check for existing installation
+if ((Test-Path ".context-by-md") -and (Test-Path ".context-by-md\CURRENT.md")) {
+    Write-Host ""
+    Write-Host "Existing context-by-md installation detected." -ForegroundColor Yellow
+    Write-Host "This will overwrite your context files (CURRENT.md, PLAN.md, BACKLOG.md)." -ForegroundColor Yellow
+    $response = Read-Host "Continue? [y/N]"
+    if ($response -notmatch "^[Yy]$") {
+        Write-Host "Installation cancelled." -ForegroundColor Cyan
+        exit 1
+    }
+}
+
 # Create directories
 New-Item -ItemType Directory -Force -Path ".context-by-md\sessions" | Out-Null
 New-Item -ItemType Directory -Force -Path ".context-by-md\archive" | Out-Null
@@ -19,6 +31,7 @@ Write-Host "Downloading context files..."
 Invoke-RestMethod "$BaseUrl/.context-by-md/CURRENT.md" -OutFile ".context-by-md\CURRENT.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/PLAN.md" -OutFile ".context-by-md\PLAN.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/BACKLOG.md" -OutFile ".context-by-md\BACKLOG.md"
+Invoke-RestMethod "$BaseUrl/.context-by-md/sessions/_template.md" -OutFile ".context-by-md\sessions\_template.md"
 
 # Download Claude commands
 Write-Host "Downloading Claude commands..."

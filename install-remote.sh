@@ -10,6 +10,19 @@ BASE_URL="https://raw.githubusercontent.com/$REPO/$BRANCH"
 
 echo "[*] Installing context-by-md..."
 
+# Check for existing installation
+if [ -d ".context-by-md" ] && [ -f ".context-by-md/CURRENT.md" ]; then
+    echo ""
+    echo "[!] Existing context-by-md installation detected."
+    echo "    This will overwrite your context files (CURRENT.md, PLAN.md, BACKLOG.md)."
+    read -p "    Continue? [y/N] " -n 1 -r
+    echo ""
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "[*] Installation cancelled."
+        exit 1
+    fi
+fi
+
 # Create directories
 mkdir -p .context-by-md/sessions
 mkdir -p .context-by-md/archive
@@ -20,6 +33,7 @@ echo "Downloading context files..."
 curl -fsSL "$BASE_URL/.context-by-md/CURRENT.md" -o .context-by-md/CURRENT.md
 curl -fsSL "$BASE_URL/.context-by-md/PLAN.md" -o .context-by-md/PLAN.md
 curl -fsSL "$BASE_URL/.context-by-md/BACKLOG.md" -o .context-by-md/BACKLOG.md
+curl -fsSL "$BASE_URL/.context-by-md/sessions/_template.md" -o .context-by-md/sessions/_template.md
 
 # Download Claude commands
 echo "Downloading Claude commands..."
