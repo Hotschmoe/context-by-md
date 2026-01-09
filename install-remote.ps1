@@ -1,0 +1,63 @@
+# Remote install - downloads and installs context-by-md from GitHub
+# Usage: irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.ps1 | iex
+
+$ErrorActionPreference = "Stop"
+
+$Repo = "hotschmoe/context-by-md"
+$Branch = "master"
+$BaseUrl = "https://raw.githubusercontent.com/$Repo/$Branch"
+
+Write-Host "Installing context-by-md..." -ForegroundColor Cyan
+
+# Create directories
+New-Item -ItemType Directory -Force -Path ".context-by-md\sessions" | Out-Null
+New-Item -ItemType Directory -Force -Path ".context-by-md\archive" | Out-Null
+New-Item -ItemType Directory -Force -Path ".claude\commands" | Out-Null
+
+# Download context files
+Write-Host "Downloading context files..."
+Invoke-RestMethod "$BaseUrl/.context-by-md/CURRENT.md" -OutFile ".context-by-md\CURRENT.md"
+Invoke-RestMethod "$BaseUrl/.context-by-md/PLAN.md" -OutFile ".context-by-md\PLAN.md"
+Invoke-RestMethod "$BaseUrl/.context-by-md/BACKLOG.md" -OutFile ".context-by-md\BACKLOG.md"
+
+# Download Claude commands
+Write-Host "Downloading Claude commands..."
+Invoke-RestMethod "$BaseUrl/.claude/commands/context-start.md" -OutFile ".claude\commands\context-start.md"
+Invoke-RestMethod "$BaseUrl/.claude/commands/context-checkpoint.md" -OutFile ".claude\commands\context-checkpoint.md"
+Invoke-RestMethod "$BaseUrl/.claude/commands/context-task.md" -OutFile ".claude\commands\context-task.md"
+
+# Download or merge settings
+if (Test-Path ".claude\settings.local.json") {
+    Write-Host "  .claude\settings.local.json exists - please manually add hooks" -ForegroundColor Yellow
+    Write-Host "   See $BaseUrl/.claude/settings.local.json for reference" -ForegroundColor Yellow
+} else {
+    Invoke-RestMethod "$BaseUrl/.claude/settings.local.json" -OutFile ".claude\settings.local.json"
+}
+
+# Download and append/create CLAUDE.md
+if (Test-Path "CLAUDE.md") {
+    Add-Content -Path "CLAUDE.md" -Value ""
+    Add-Content -Path "CLAUDE.md" -Value "---"
+    Add-Content -Path "CLAUDE.md" -Value ""
+    $claudeMd = Invoke-RestMethod "$BaseUrl/CLAUDE.md"
+    Add-Content -Path "CLAUDE.md" -Value $claudeMd
+    Write-Host "Appended context instructions to existing CLAUDE.md" -ForegroundColor Green
+} else {
+    Invoke-RestMethod "$BaseUrl/CLAUDE.md" -OutFile "CLAUDE.md"
+    Write-Host "Created CLAUDE.md" -ForegroundColor Green
+}
+
+Write-Host ""
+Write-Host "Context system installed!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Files created:"
+Write-Host "  .context-by-md\CURRENT.md    - Active work state"
+Write-Host "  .context-by-md\PLAN.md       - Task tracking"
+Write-Host "  .context-by-md\BACKLOG.md    - Future work"
+Write-Host "  .context-by-md\sessions\     - Session logs"
+Write-Host "  .claude\commands\            - Slash commands"
+Write-Host ""
+Write-Host "Next steps:"
+Write-Host "  1. Edit .context-by-md\CURRENT.md with your project info"
+Write-Host "  2. Add initial tasks to .context-by-md\PLAN.md"
+Write-Host "  3. Tell Claude to run /context-start"

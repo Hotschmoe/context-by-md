@@ -12,7 +12,7 @@ Read and internalize the current project context to continue work effectively.
 
 2. **Read PLAN.md** to understand:
    - Current epic and its goal
-   - Ready tasks (🟢) sorted by priority
+   - Ready tasks ([READY]) sorted by priority
    - Blocked tasks and their blockers
    - Recently completed work
 
@@ -29,7 +29,7 @@ Read and internalize the current project context to continue work effectively.
 
 Update CURRENT.md "Session Notes" with:
 ```markdown
-## 💭 Session Notes
+## [...] Session Notes
 
 **Session started:** [timestamp]
 **Continuing from:** [last session summary if visible]

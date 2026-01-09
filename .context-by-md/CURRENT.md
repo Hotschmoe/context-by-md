@@ -3,19 +3,19 @@
 > **Last Updated:** 2026-01-08 14:30 PST
 > **Session:** Starting fresh
 
-## 🎯 Active Focus
+## [*] Active Focus
 
 <!-- What we're working on RIGHT NOW. Keep this tight - 1-3 items max -->
 
 _No active work. Ready to begin._
 
-## 📋 Immediate Next Steps
+## [-] Immediate Next Steps
 
 <!-- Ordered list of what to do next. Claude updates this during work -->
 
 1. _Waiting for direction_
 
-## ⚠️ Critical Context
+## [!] Critical Context
 
 <!-- Things that MUST NOT be forgotten across compaction -->
 
@@ -23,7 +23,7 @@ _No active work. Ready to begin._
 - Key constraints: _[any blockers, requirements]_
 - Important decisions: _[things we've decided]_
 
-## 🔗 Key Resources
+## [~] Key Resources
 
 <!-- Files, docs, URLs that are immediately relevant -->
 
@@ -31,7 +31,7 @@ _No active work. Ready to begin._
 - Docs: _path/to/docs_
 - Related: _links_
 
-## 💭 Session Notes
+## [...] Session Notes
 
 <!-- Claude adds notes here during the session, moved to session log at end -->
 

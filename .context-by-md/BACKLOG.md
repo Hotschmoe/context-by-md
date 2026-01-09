@@ -7,7 +7,7 @@ when noticing issues that aren't immediately actionable.
 
 ---
 
-## 🐛 Bugs & Issues
+## [BUG] Bugs & Issues
 
 <!-- Things that are broken but not blocking current work -->
 
@@ -23,7 +23,7 @@ _None discovered yet._
 
 ---
 
-## 🔧 Technical Debt
+## [DEBT] Technical Debt
 
 <!-- Code that works but should be improved -->
 
@@ -39,7 +39,7 @@ _None identified yet._
 
 ---
 
-## ✨ Future Improvements
+## [NEW] Future Improvements
 
 <!-- Nice-to-haves, enhancements, ideas -->
 
@@ -54,7 +54,7 @@ _None yet._
 
 ---
 
-## 💡 Ideas & Notes
+## [IDEA] Ideas & Notes
 
 <!-- Unstructured thoughts to revisit later -->
 

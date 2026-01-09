@@ -1,0 +1,63 @@
+#!/bin/bash
+# Remote install - downloads and installs context-by-md from GitHub
+# Usage: curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.sh | bash
+
+set -e
+
+REPO="hotschmoe/context-by-md"
+BRANCH="master"
+BASE_URL="https://raw.githubusercontent.com/$REPO/$BRANCH"
+
+echo "[*] Installing context-by-md..."
+
+# Create directories
+mkdir -p .context-by-md/sessions
+mkdir -p .context-by-md/archive
+mkdir -p .claude/commands
+
+# Download context files
+echo "Downloading context files..."
+curl -fsSL "$BASE_URL/.context-by-md/CURRENT.md" -o .context-by-md/CURRENT.md
+curl -fsSL "$BASE_URL/.context-by-md/PLAN.md" -o .context-by-md/PLAN.md
+curl -fsSL "$BASE_URL/.context-by-md/BACKLOG.md" -o .context-by-md/BACKLOG.md
+
+# Download Claude commands
+echo "Downloading Claude commands..."
+curl -fsSL "$BASE_URL/.claude/commands/context-start.md" -o .claude/commands/context-start.md
+curl -fsSL "$BASE_URL/.claude/commands/context-checkpoint.md" -o .claude/commands/context-checkpoint.md
+curl -fsSL "$BASE_URL/.claude/commands/context-task.md" -o .claude/commands/context-task.md
+
+# Download or merge settings
+if [ -f .claude/settings.local.json ]; then
+    echo "  .claude/settings.local.json exists - please manually add hooks"
+    echo "   See $BASE_URL/.claude/settings.local.json for reference"
+else
+    curl -fsSL "$BASE_URL/.claude/settings.local.json" -o .claude/settings.local.json
+fi
+
+# Download and append/create CLAUDE.md
+if [ -f CLAUDE.md ]; then
+    echo "" >> CLAUDE.md
+    echo "---" >> CLAUDE.md
+    echo "" >> CLAUDE.md
+    curl -fsSL "$BASE_URL/CLAUDE.md" >> CLAUDE.md
+    echo "Appended context instructions to existing CLAUDE.md"
+else
+    curl -fsSL "$BASE_URL/CLAUDE.md" -o CLAUDE.md
+    echo "Created CLAUDE.md"
+fi
+
+echo ""
+echo "Context system installed!"
+echo ""
+echo "Files created:"
+echo "  .context-by-md/CURRENT.md    - Active work state"
+echo "  .context-by-md/PLAN.md       - Task tracking"
+echo "  .context-by-md/BACKLOG.md    - Future work"
+echo "  .context-by-md/sessions/     - Session logs"
+echo "  .claude/commands/            - Slash commands"
+echo ""
+echo "Next steps:"
+echo "  1. Edit .context-by-md/CURRENT.md with your project info"
+echo "  2. Add initial tasks to .context-by-md/PLAN.md"
+echo "  3. Tell Claude to run /context-start"

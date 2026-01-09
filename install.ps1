@@ -1,0 +1,59 @@
+# Install markdown context system into current project
+# Usage: .\install.ps1
+
+$ErrorActionPreference = "Stop"
+
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+Write-Host "Installing markdown context system..." -ForegroundColor Cyan
+
+# Create directories
+New-Item -ItemType Directory -Force -Path ".context-by-md\sessions" | Out-Null
+New-Item -ItemType Directory -Force -Path ".context-by-md\archive" | Out-Null
+New-Item -ItemType Directory -Force -Path ".claude\commands" | Out-Null
+
+# Copy context files
+Copy-Item "$ScriptDir\.context-by-md\CURRENT.md" ".context-by-md\"
+Copy-Item "$ScriptDir\.context-by-md\PLAN.md" ".context-by-md\"
+Copy-Item "$ScriptDir\.context-by-md\BACKLOG.md" ".context-by-md\"
+if (Test-Path "$ScriptDir\.context-by-md\sessions\_template.md") {
+    Copy-Item "$ScriptDir\.context-by-md\sessions\_template.md" ".context-by-md\sessions\"
+}
+
+# Copy Claude commands
+Copy-Item "$ScriptDir\.claude\commands\*.md" ".claude\commands\"
+
+# Copy or merge settings
+if (Test-Path ".claude\settings.local.json") {
+    Write-Host "  .claude\settings.local.json exists - please manually add hooks" -ForegroundColor Yellow
+    Write-Host "   See $ScriptDir\.claude\settings.local.json for reference" -ForegroundColor Yellow
+} else {
+    Copy-Item "$ScriptDir\.claude\settings.local.json" ".claude\"
+}
+
+# Add CLAUDE.md content or create it
+if (Test-Path "CLAUDE.md") {
+    Add-Content -Path "CLAUDE.md" -Value ""
+    Add-Content -Path "CLAUDE.md" -Value "---"
+    Add-Content -Path "CLAUDE.md" -Value ""
+    Get-Content "$ScriptDir\CLAUDE.md" | Add-Content -Path "CLAUDE.md"
+    Write-Host "Appended context instructions to existing CLAUDE.md" -ForegroundColor Green
+} else {
+    Copy-Item "$ScriptDir\CLAUDE.md" "."
+    Write-Host "Created CLAUDE.md" -ForegroundColor Green
+}
+
+Write-Host ""
+Write-Host "Context system installed!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Files created:"
+Write-Host "  .context-by-md\CURRENT.md    - Active work state"
+Write-Host "  .context-by-md\PLAN.md       - Task tracking"
+Write-Host "  .context-by-md\BACKLOG.md    - Future work"
+Write-Host "  .context-by-md\sessions\     - Session logs"
+Write-Host "  .claude\commands\            - Slash commands"
+Write-Host ""
+Write-Host "Next steps:"
+Write-Host "  1. Edit .context-by-md\CURRENT.md with your project info"
+Write-Host "  2. Add initial tasks to .context-by-md\PLAN.md"
+Write-Host "  3. Tell Claude to run /context-start"

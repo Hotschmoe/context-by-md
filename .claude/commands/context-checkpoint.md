@@ -19,28 +19,28 @@ Save current state so the next session (or post-compaction continuation) can pic
 > **Last Updated:** [NOW - ISO timestamp]
 > **Session:** [Brief description of what was happening]
 
-## 🎯 Active Focus
+## [*] Active Focus
 
 [What we're ACTUALLY working on right now, not what we started with]
 
-## 📋 Immediate Next Steps
+## [-] Immediate Next Steps
 
 1. [Very next thing to do]
 2. [Then this]
 3. [Then this]
 
-## ⚠️ Critical Context
+## [!] Critical Context
 
 [Anything that would be LOST if not written down]
 - Key decisions made this session
 - Important constraints discovered
 - State of work-in-progress
 
-## 🔗 Key Resources
+## [~] Key Resources
 
 [Files currently relevant]
 
-## 💭 Session Notes
+## [...] Session Notes
 
 [Move existing notes to session log, add final notes here]
 ```
@@ -48,7 +48,7 @@ Save current state so the next session (or post-compaction continuation) can pic
 ### 2. Update PLAN.md
 
 - Check off completed subtasks
-- Update task statuses (🟢→🟡→✅ etc)
+- Update task statuses ([READY]->[WIP]->[DONE] etc)
 - Add any new tasks discovered
 - Update "Blocked by" notes if blockers resolved
 

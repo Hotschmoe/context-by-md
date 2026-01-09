@@ -26,8 +26,22 @@ This system achieves 80% of the value with 20% of the complexity by using:
 
 ## Quick Start
 
+### One-Line Install
+
+**Linux/macOS:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.sh | bash
+```
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.ps1 | iex
+```
+
+### Manual Install
+
 1. Copy `.context-by-md/` to your project root
-2. Copy `.claude/commands/` hooks to your project  
+2. Copy `.claude/commands/` hooks to your project
 3. Add `.context-by-md/sessions/` and `.context-by-md/archive/` to `.gitignore` (optional)
 4. Tell Claude: "Read .context-by-md/CURRENT.md before starting work"
 
@@ -45,7 +59,7 @@ Replaces beads' dependency graph with a simple hierarchy:
 - Epics (## headers)
 - Tasks (### headers with checkboxes)
 - Subtasks (nested checkboxes)
-- Status markers: 🔴 blocked, 🟡 in-progress, 🟢 ready, ✅ done
+- Status markers: [BLOCKED], [WIP], [READY], [DONE]
 
 ### BACKLOG.md - Discovered Work
 Where Claude files things it notices but aren't immediate:
