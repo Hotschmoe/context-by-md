@@ -37,7 +37,8 @@ curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/clea
 .context-by-md/
 ├── CURRENT.md       # Session state + active task detail
 ├── PLAN.md          # Task list + backlog
-└── QUICKREF.md      # Command reference
+├── QUICKREF.md      # Command reference
+└── _VERSION         # Installed version (for upgrades)
 
 .claude/
 ├── commands/        # Slash commands
