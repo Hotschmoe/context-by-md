@@ -50,8 +50,13 @@ Save current state for session continuity and compaction recovery.
 - Update task status: `[READY]` → `[WIP]`
 - Add any discovered bugs/debt/ideas to Backlog section
 
-## On Compaction
+## On Compaction / Context Loss
 
-1. Run checkpoint
-2. Read CURRENT.md
-3. Continue from Next Steps / current subtask
+If you notice you've lost context:
+
+1. Read `.context-by-md/CURRENT.md` immediately
+2. Check "Active Task" for goal and subtasks
+3. Resume from "Next Steps" or `<-- you are here` marker
+4. Read `PLAN.md` if you need broader context
+
+**Signs:** You don't remember what you were working on, user references something unfamiliar, or unsure of task state.

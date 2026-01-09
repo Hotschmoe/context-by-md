@@ -156,6 +156,22 @@ Stop hook automatically reminds Claude to run `/context-checkpoint` when a sessi
 2. Copy `clean/context-by-md/.claude/` to your project
 3. Copy `clean/context-by-md/CLAUDE.md` to your project root (or append to existing)
 
+## Uninstall
+
+Remove the context system from your project:
+
+**Windows (PowerShell):**
+```powershell
+Remove-Item -Recurse -Force .context-by-md, .claude\commands\context-*.md, .claude\hooks\context-*.ps1
+```
+
+**Linux/macOS:**
+```bash
+rm -rf .context-by-md .claude/commands/context-*.md .claude/hooks/context-*.sh
+```
+
+Note: This preserves other `.claude/` settings. To remove everything context-by-md added, also delete the CLAUDE.md file (or remove the context system section if you have other instructions in it).
+
 ## vs Beads
 
 **What you lose:** Automated ready-work queries, hash-based IDs, formal dependency tracking, LLM summarization, multi-repo coordination, daemon sync.

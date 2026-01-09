@@ -29,7 +29,13 @@ This project uses markdown context in `.context-by-md/`.
 /context-checkpoint    # Save state
 ```
 
-### On Compaction
-1. Run `/context-checkpoint`
-2. Read CURRENT.md
-3. Continue from current subtask
+### On Compaction / Context Loss
+
+If you notice you've lost context (compaction happened, or session restarted):
+
+1. Read `.context-by-md/CURRENT.md` immediately
+2. Check the "Active Task" section for current goal and subtasks
+3. Resume from the "Next Steps" or current subtask marker (`<-- you are here`)
+4. Read `.context-by-md/PLAN.md` if you need broader project context
+
+**Signs you need recovery:** You don't remember what you were working on, the user references something unfamiliar, or you're unsure of the current task state.
