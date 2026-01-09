@@ -22,6 +22,11 @@ This system achieves 80% of the value with 20% of the complexity by using:
 │   └── ...
 └── archive/
     └── 2026-01/            # Archived/compacted old sessions
+
+.claude/
+├── commands/               # Slash commands (/context-start, etc.)
+├── hooks/                  # Auto-checkpoint on session stop
+└── settings.local.json     # Hook configuration
 ```
 
 ## Quick Start
@@ -41,9 +46,18 @@ irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-rem
 ### Manual Install
 
 1. Copy `.context-by-md/` to your project root
-2. Copy `.claude/commands/` hooks to your project
+2. Copy `.claude/` directory (commands, hooks, settings) to your project
 3. Add `.context-by-md/sessions/` and `.context-by-md/archive/` to `.gitignore` (optional)
 4. Tell Claude: "Read .context-by-md/CURRENT.md before starting work"
+
+## Hooks
+
+The system includes a Stop hook that automatically reminds Claude to run `/context-checkpoint` when a session ends. This ensures context is saved even if you forget.
+
+- **Unix**: Uses bash scripts in `.claude/hooks/`
+- **Windows**: Uses PowerShell scripts in `.claude/hooks/`
+
+The install scripts automatically set up the correct hooks for your platform.
 
 ## File Purposes
 
