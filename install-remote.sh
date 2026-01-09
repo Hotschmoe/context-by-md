@@ -27,6 +27,7 @@ fi
 mkdir -p .context-by-md/sessions
 mkdir -p .context-by-md/archive
 mkdir -p .claude/commands
+mkdir -p .claude/hooks
 
 # Download context files
 echo "Downloading context files..."
@@ -41,12 +42,18 @@ curl -fsSL "$BASE_URL/.claude/commands/context-start.md" -o .claude/commands/con
 curl -fsSL "$BASE_URL/.claude/commands/context-checkpoint.md" -o .claude/commands/context-checkpoint.md
 curl -fsSL "$BASE_URL/.claude/commands/context-task.md" -o .claude/commands/context-task.md
 
-# Download or merge settings
+# Download hooks (bash versions for Unix)
+echo "Downloading hooks..."
+curl -fsSL "$BASE_URL/.claude/hooks/context-start.sh" -o .claude/hooks/context-start.sh
+curl -fsSL "$BASE_URL/.claude/hooks/context-stop.sh" -o .claude/hooks/context-stop.sh
+chmod +x .claude/hooks/*.sh
+
+# Download or merge settings (Unix version)
 if [ -f .claude/settings.local.json ]; then
     echo "  .claude/settings.local.json exists - please manually add hooks"
-    echo "   See $BASE_URL/.claude/settings.local.json for reference"
+    echo "   See $BASE_URL/.claude/settings.local.unix.json for reference"
 else
-    curl -fsSL "$BASE_URL/.claude/settings.local.json" -o .claude/settings.local.json
+    curl -fsSL "$BASE_URL/.claude/settings.local.unix.json" -o .claude/settings.local.json
 fi
 
 # Download and append/create CLAUDE.md
@@ -70,6 +77,7 @@ echo "  .context-by-md/PLAN.md       - Task tracking"
 echo "  .context-by-md/BACKLOG.md    - Future work"
 echo "  .context-by-md/sessions/     - Session logs"
 echo "  .claude/commands/            - Slash commands"
+echo "  .claude/hooks/               - Auto-checkpoint on stop"
 echo ""
 echo "Next steps:"
 echo "  1. Edit .context-by-md/CURRENT.md with your project info"
