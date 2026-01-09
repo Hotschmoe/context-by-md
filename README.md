@@ -35,20 +35,21 @@ This system achieves 80% of the value with 20% of the complexity by using:
 
 **Linux/macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.sh | bash
+curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/clean/context-by-md/install-remote.sh | bash
 ```
 
 **Windows (PowerShell):**
 ```powershell
-irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.ps1 | iex
+irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/clean/context-by-md/install-remote.ps1 | iex
 ```
 
 ### Manual Install
 
-1. Copy `.context-by-md/` to your project root
-2. Copy `.claude/` directory (commands, hooks, settings) to your project
-3. Add `.context-by-md/sessions/` and `.context-by-md/archive/` to `.gitignore` (optional)
-4. Tell Claude: "Read .context-by-md/CURRENT.md before starting work"
+1. Copy `clean/context-by-md/.context-by-md/` to your project root
+2. Copy `clean/context-by-md/.claude/` directory (commands, hooks, settings) to your project
+3. Copy `clean/context-by-md/CLAUDE.md` to your project root (or append to existing)
+4. Add `.context-by-md/sessions/` and `.context-by-md/archive/` to `.gitignore` (optional)
+5. Tell Claude: "Read .context-by-md/CURRENT.md before starting work"
 
 ## Hooks
 

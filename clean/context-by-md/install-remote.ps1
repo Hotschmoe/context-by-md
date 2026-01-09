@@ -1,11 +1,11 @@
 # Remote install - downloads and installs context-by-md from GitHub
-# Usage: irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.ps1 | iex
+# Usage: irm https://raw.githubusercontent.com/hotschmoe/context-by-md/master/clean/context-by-md/install-remote.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 
 $Repo = "hotschmoe/context-by-md"
 $Branch = "master"
-$BaseUrl = "https://raw.githubusercontent.com/$Repo/$Branch"
+$BaseUrl = "https://raw.githubusercontent.com/$Repo/$Branch/clean/context-by-md"
 
 Write-Host "Installing context-by-md..." -ForegroundColor Cyan
 

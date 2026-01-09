@@ -1,12 +1,12 @@
 #!/bin/bash
 # Remote install - downloads and installs context-by-md from GitHub
-# Usage: curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/install-remote.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/hotschmoe/context-by-md/master/clean/context-by-md/install-remote.sh | bash
 
 set -e
 
 REPO="hotschmoe/context-by-md"
 BRANCH="master"
-BASE_URL="https://raw.githubusercontent.com/$REPO/$BRANCH"
+BASE_URL="https://raw.githubusercontent.com/$REPO/$BRANCH/clean/context-by-md"
 
 echo "[*] Installing context-by-md..."
 
