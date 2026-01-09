@@ -1,0 +1,10 @@
+# Context system - optional ignores
+# Uncomment these if you don't want session logs in git
+
+# .context/sessions/
+# .context/archive/
+
+# Keep these tracked:
+# .context/CURRENT.md
+# .context/PLAN.md  
+# .context/BACKLOG.md

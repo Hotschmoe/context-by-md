@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [],
+    "PostToolUse": [],
+    "Notification": [],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/context-checkpoint"
+          }
+        ]
+      }
+    ]
+  }
+}
