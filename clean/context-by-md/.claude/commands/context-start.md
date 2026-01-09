@@ -1,24 +1,25 @@
 # Context Start
 
-Read project context to continue work effectively.
+Read context and show task list.
 
 ## Steps
 
-1. **Read CURRENT.md** - Active focus, next steps, critical context
-2. **Read PLAN.md** - Active Sprint tasks, find [WIP] or highest priority [READY]
-3. **Read ACTIONPLAN.md** - If task active, check current subtask
-4. **Skim BACKLOG.md** - Any high-priority bugs to promote?
+1. **Read CURRENT.md** - Check active task, next steps
+2. **Read PLAN.md** - Get task list
 
-## After Reading
+## Output
 
-Report in 2-3 sentences:
-- Current state summary
-- Active task + current subtask (if WIP) or highest priority ready task
-- Ask: continue or different plans?
-
-Update CURRENT.md Session Notes:
-```markdown
-## [...] Session Notes
-**Started:** [timestamp] | **Continuing:** [last session summary]
-**Plan:** [what you'll work on]
+Show status summary:
 ```
+Active: [task name] - [current subtask]
+   or: No active task
+
+Tasks:
+1. [P1] Task name | context
+2. [P2] Another task | context
+...
+
+What would you like to work on?
+```
+
+If there's an active task, ask if user wants to continue or switch.

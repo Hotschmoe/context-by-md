@@ -1,164 +1,163 @@
 # Context Task
 
-Quick task operations and action planning.
+Task operations and planning.
 
 ## Usage
 ```
-/context-task start User auth          # Interview + plan active task
-/context-task add P1: User auth | JWT  # Add to PLAN.md
-/context-task done User auth           # Mark complete
-/context-task block Payments | waiting: API keys
-/context-task ready Payments
-/context-task decide "Use JWT vs sessions" | chose JWT | stateless, simpler
-/context-task checkpoint               # Record progress in ACTIONPLAN.md
-/context-task finish                   # Archive ACTIONPLAN.md, mark done
-/context-task find ready
+/context-task                      # List all tasks (default)
+/context-task start 1              # Start task #1 (quick, no interview)
+/context-task start 1 --plan       # Start task #1 with full interview
+/context-task add P1: Title | ctx  # Add new task
+/context-task done                 # Complete active task
+/context-task block 1 | reason     # Block task #1
+/context-task ready 1              # Unblock task #1
+/context-task decide "Topic" | choice | reason
 ```
 
 ---
 
-## Start Task (Interview Flow)
+## List Tasks (Default)
 
-When user runs `/context-task start "Task name"`:
+When user runs `/context-task` with no arguments:
 
-### 1. Update ACTIONPLAN.md Header
-```markdown
-> **Task:** Task name | **Started:** YYYY-MM-DD | **Status:** Planning
+1. Read PLAN.md Tasks section
+2. Display numbered list with priority:
 ```
+Tasks:
+1. [P1] User auth | JWT approach | next: session mgmt
+2. [P2] Fix navbar | responsive issue
+3. [P3] Add tests
+4. [BLOCKED] Payments | waiting: API keys
 
-### 2. Run Interview (ask user these questions)
-
-**Goal & Scope:**
-- What's the goal? What does "done" look like?
-- What's explicitly OUT of scope?
-- Any hard constraints? (tech, time, dependencies)
-
-**Unknowns:**
-- What don't we know yet? Any risks?
-- External dependencies or blockers?
-
-**Decomposition:**
-- Can you describe the main steps?
-- What's the very first concrete action?
-
-### 3. Record Answers in ACTIONPLAN.md
-
-Fill in sections:
-- Goal & Definition of Done
-- Scope (in/out)
-- Constraints
-- Unknowns & Risks
-- Decomposition (subtasks)
-- First concrete step
-
-### 4. Identify Checkpoints
-
-Based on interview, add decision checkpoints:
-```markdown
-## Checkpoints
-- [ ] **After auth design:** JWT or sessions? Refresh token strategy?
-- [ ] **After basic login works:** Add OAuth or ship MVP first?
+Active: #1 User auth (WIP)
 ```
-
-### 5. Update PLAN.md
-
-Change task status: `[READY]` → `[WIP]`
-
-### 6. Confirm Ready
-
-Tell user: "Ready to start. First step: [X]. Proceed?"
+3. Show which task is active (if any)
 
 ---
 
-## Other Operations
+## Start Task
 
-### Add Task
-Add to PLAN.md "Active Sprint":
+### Quick Start (default): `/context-task start 1`
+
+1. Find task #1 in PLAN.md
+2. Update CURRENT.md Active Task section:
 ```markdown
-- [READY] P#: Title | context | next: action
+## Active Task
+
+**Task:** User auth | **Status:** WIP | **Started:** 2026-01-09
+
+### Goal
+[Copied from task context in PLAN.md, or "Complete this task"]
+
+### Scope
+**In:** [From task line context]
+**Out:** _Not defined_
+
+### Constraints
+_None identified._
+
+### Subtasks
+- [ ] [From "next:" in task line, or first step]
+
+### Decisions
+| Decision | Choice | Why | Date |
+|----------|--------|-----|------|
 ```
+3. Update PLAN.md: `[READY]` → `[WIP]`
+4. Tell user: "Started #1: User auth. First step: [next action]. Go?"
 
-### Mark Done
-1. `[WIP]` → `[DONE]` in PLAN.md
-2. Move to "Done (This Sprint)"
+### With Interview: `/context-task start 1 --plan`
 
-### Block / Ready
-Update status and blocker in PLAN.md
-
-### Decide (during work)
-Add to ACTIONPLAN.md Decisions table:
-```markdown
-| Use JWT vs sessions | JWT | Stateless, simpler scaling | 01-09 |
-```
-
-### Checkpoint (during work)
-Update ACTIONPLAN.md:
-- Check off completed subtasks
-- Add any new decisions
-- Note current state in Interview Log section
-
-### Finish Task
-1. Archive ACTIONPLAN.md to `.context-by-md/archive/plans/YYYY-MM-DD_task-name.md`
-2. Reset ACTIONPLAN.md to blank template:
-```markdown
-# Action Plan
-
-> **Task:** _none active_ | **Started:** — | **Status:** —
-
-_Run `/context-task start "Task name"` to begin planning._
+1. Find task #1 in PLAN.md
+2. Run interview (ask user):
+   - **Goal:** What does "done" look like?
+   - **Scope:** What's in? What's explicitly out?
+   - **Constraints:** Tech limits, dependencies, blockers?
+   - **Steps:** Main steps to complete this?
+   - **First action:** What's the very first concrete step?
+3. Populate CURRENT.md Active Task with answers
+4. Update PLAN.md: `[READY]` → `[WIP]`
+5. Confirm: "Ready. First step: [X]. Proceed?"
 
 ---
 
-## Goal & Definition of Done
+## Add Task
+
+`/context-task add P1: Title | context | next: action`
+
+Add to PLAN.md Tasks section:
+```markdown
+- [READY] P1: Title | context | next: action
+```
+
+---
+
+## Complete Task
+
+`/context-task done`
+
+1. Remove active task from PLAN.md (task is complete, no need to track)
+2. Clear CURRENT.md Active Task section:
+```markdown
+## Active Task
+
+**Task:** _none_ | **Status:** — | **Started:** —
+
+### Goal
 _Not yet defined._
 
-## Scope
-**In scope:**
-- _item_
+### Scope
+**In:** _items_
+**Out:** _items_
 
-**Out of scope:**
-- _item_
+### Constraints
+_None identified._
 
-## Constraints
-- _none identified_
+### Subtasks
+- [ ] _subtask_
 
-## Unknowns & Risks
-- _none identified_
-
----
-
-## Decomposition
-- [ ] _subtask 1_
-
-**First concrete step:** _what to do right now_
-
----
-
-## Decisions
-| Decision | Choice | Rationale | Date |
-|----------|--------|-----------|------|
-
-## Checkpoints
-- [ ] **Checkpoint:** _description_ | **Question:** _what to decide_
-
----
-
-## Interview Log
-_No interview conducted yet._
+### Decisions
+| Decision | Choice | Why | Date |
+|----------|--------|-----|------|
 ```
-3. Mark task [DONE] in PLAN.md
-4. Move to "Done (This Sprint)"
-
-### Find Tasks
-Scan PLAN.md, report matching by status
 
 ---
 
-## For Discovered Work
+## Block / Ready
 
-Add to BACKLOG.md (not PLAN.md):
+`/context-task block 1 | reason` - Block task #1:
 ```markdown
-- [BUG] P#: Description | file:line | details
-- [DEBT] P#: Description | why | impact
+- [BLOCKED] P1: Task | blocked: reason
+```
+
+`/context-task ready 1` - Unblock task #1:
+```markdown
+- [READY] P1: Task | context
+```
+
+---
+
+## Record Decision
+
+`/context-task decide "Topic" | choice | reason`
+
+Add to CURRENT.md Decisions table:
+```markdown
+| Topic | choice | reason | 2026-01-09 |
+```
+
+---
+
+## Discovered Work
+
+Add to PLAN.md Backlog section:
+```markdown
+### Bugs
+- [BUG] P2: Description | file:line | details
+
+### Debt
+- [DEBT] P3: Description | why | impact
+
+### Ideas
 - [IDEA] Description | value
 ```

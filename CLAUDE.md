@@ -18,45 +18,42 @@ context-by-md/
     ├── install.ps1              # Local install (Windows)
     ├── install-remote.ps1       # One-line remote install
     ├── .context-by-md/
-    │   ├── CURRENT.md           # Session state
-    │   ├── PLAN.md              # Task list (terse)
-    │   ├── ACTIONPLAN.md        # Active task detail
-    │   ├── BACKLOG.md           # Bugs, debt, ideas
-    │   └── sessions/
+    │   ├── CURRENT.md           # Session state + active task
+    │   ├── PLAN.md              # Task list + backlog
+    │   └── QUICKREF.md          # Command reference
     └── .claude/
         ├── commands/            # Slash commands
-        ├── hooks/               # Auto-checkpoint on stop
+        ├── hooks/               # Checkpoint reminder on stop
         └── settings.local.json
 ```
 
 ## Key Concepts
 
-### Task Format (PLAN.md - Terse)
+### Files (Just 2)
+| File | Purpose |
+|------|---------|
+| `CURRENT.md` | Session state + active task detail (goal, scope, subtasks, decisions) |
+| `PLAN.md` | Task list + backlog (bugs, debt, ideas) |
+
+### Task Format (PLAN.md)
 ```markdown
-- [WIP] P1: Task title | context | next: action
-- [READY] P2: Another task | details | next: first step
+- [READY] P1: Task title | context | next: action
 ```
 
-### Action Planning (ACTIONPLAN.md - Detailed)
-When starting a task, `/context-task start` runs an interview:
-- Goal & definition of done
-- Scope (in/out)
-- Constraints & unknowns
-- Decomposition into subtasks
-- Decision checkpoints
-
-Only the active task gets this detail. Archived when task completes.
+### Commands
+```
+/context-task              # List tasks with numbers
+/context-task start 1      # Start task #1 (quick)
+/context-task start 1 --plan  # Start with interview
+/context-task done         # Complete active task
+/context-checkpoint        # Save state
+```
 
 ### Status Markers
-`[READY]` `[WIP]` `[BLOCKED]` `[DONE]` `[PAUSED]`
+`[READY]` `[WIP]` `[BLOCKED]` `[PAUSED]`
 
 ### Priority
 P0=Critical, P1=High, P2=Medium, P3=Low
-
-## Archiving
-
-- Done tasks: `archive/done-YYYY-MM.md`
-- Action plans: `archive/plans/YYYY-MM-DD_task-name.md`
 
 ## Development
 

@@ -2,48 +2,34 @@
 
 ## Context System
 
-This project uses markdown context in `.context-by-md/`. **Run `/context-start` before work.**
+This project uses markdown context in `.context-by-md/`.
 
 ### Commands
-- `/context-start` - Read context, orient to current state
-- `/context-checkpoint` - Save state (auto-prompted on stop)
-- `/context-task start "X"` - Interview + plan task in ACTIONPLAN.md
-- `/context-task` - Other ops: add, done, block, ready, decide, finish
+| Command | What it does |
+|---------|--------------|
+| `/context-task` | List tasks (default) |
+| `/context-task start 1` | Start task #1 |
+| `/context-task start 1 --plan` | Start with interview |
+| `/context-task add P1: X` | Add task |
+| `/context-task done` | Complete active task |
+| `/context-checkpoint` | Save state |
 
-### Key Files
+### Files
 | File | Purpose |
 |------|---------|
-| `CURRENT.md` | Session state, next steps |
-| `PLAN.md` | Task list (terse) |
-| `ACTIONPLAN.md` | Active task detail (interview, decomposition, decisions) |
-| `BACKLOG.md` | Bugs, debt, ideas |
+| `CURRENT.md` | Session state + active task |
+| `PLAN.md` | Task list + backlog |
 
-### Task Format (PLAN.md)
-```markdown
-- [WIP] P1: Task title | context | next: action
+### Workflow
 ```
-Status: `[READY]` `[WIP]` `[BLOCKED]` `[DONE]` | Priority: P0-P3
-
-### Starting a Task
-1. Pick task from PLAN.md
-2. Run `/context-task start "Task name"`
-3. Answer interview questions (goal, scope, constraints, steps)
-4. Claude fills ACTIONPLAN.md with plan
-5. Begin work on first concrete step
-
-### During Work
-- Update ACTIONPLAN.md subtasks as you complete them
-- Use `/context-task decide` to record key decisions
-- Use `/context-task checkpoint` to save progress
-- Update CURRENT.md on `/context-checkpoint`
-
-### Finishing a Task
-Run `/context-task finish` to:
-- Archive ACTIONPLAN.md to `archive/plans/`
-- Mark task [DONE] in PLAN.md
-- Clear ACTIONPLAN.md for next task
+/context-task          # List tasks
+/context-task start 1  # Start task #1
+[work]                 # Update subtasks in CURRENT.md
+/context-task done     # Complete task
+/context-checkpoint    # Save state
+```
 
 ### On Compaction
 1. Run `/context-checkpoint`
-2. Read CURRENT.md + ACTIONPLAN.md
+2. Read CURRENT.md
 3. Continue from current subtask

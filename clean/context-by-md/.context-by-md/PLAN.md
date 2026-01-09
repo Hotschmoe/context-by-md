@@ -1,28 +1,28 @@
 # Plan
 
-> **Updated:** 2026-01-08 | **Sprint:** _name/dates_
+> **Updated:** —
 
 ## Legend
-`[READY]` Ready | `[WIP]` In Progress | `[BLOCKED]` Blocked | `[DONE]` Done | `[PAUSED]` Paused
+`[READY]` Ready | `[WIP]` In Progress | `[BLOCKED]` Blocked | `[PAUSED]` Paused
 Priority: P0=Critical P1=High P2=Medium P3=Low
 
 ---
 
-## Active Sprint
+## Tasks
 
-<!-- One line per task: [STATUS] P#: Title | brief context | next action or blocker -->
+<!-- One line per task: [STATUS] P#: Title | context | next action or blocker -->
 
-_No active tasks. Add with `/context-task add`_
+_No tasks. Add with `/context-task add`_
 
 <!-- Example:
 - [WIP] P1: User auth | JWT approach | next: session management
 - [READY] P2: Rate limiting | token bucket | next: implement middleware
-- [BLOCKED] P1: Payments | Stripe | waiting: API keys from client
+- [BLOCKED] P1: Payments | Stripe | blocked: API keys from client
 -->
 
 ---
 
-## Task Notes
+## Notes
 
 <!-- 2-3 lines per task that needs detail. Reference by task title. -->
 
@@ -31,31 +31,23 @@ _No notes yet._
 <!-- Example:
 ### User auth
 Using JWT with 15min access + 7day refresh tokens. Login endpoint done.
-Decision: No OAuth for MVP, add later. See docs/auth-design.md.
-
-### Payments
-Blocked since 01-05. Emailed client twice. Fallback: use Stripe test mode.
+Decision: No OAuth for MVP, add later.
 -->
 
 ---
 
-## Done (This Sprint)
+## Backlog
 
-<!-- Move here when complete, clear to archive weekly -->
+<!-- Discovered bugs, tech debt, ideas. Promote to Tasks when ready. -->
 
-_None yet._
+### Bugs
+<!-- [BUG] P#: Description | file:line | details -->
+_None._
 
-<!-- Example:
-- [DONE] P1: Database schema | completed 01-07
-- [DONE] P2: Logging setup | completed 01-06
--->
+### Debt
+<!-- [DEBT] P#: Description | why | impact -->
+_None._
 
----
-
-## Archive
-
-Completed tasks archived to `.context-by-md/archive/done-YYYY-MM.md`
-
-| Month | Tasks | Archived |
-|-------|-------|----------|
-| _none_ | | |
+### Ideas
+<!-- [IDEA] Description | value -->
+_None._

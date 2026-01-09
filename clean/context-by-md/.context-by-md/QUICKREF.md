@@ -4,14 +4,14 @@
 
 | Command | What it does |
 |---------|--------------|
-| `/context-start` | Read context, orient to state |
-| `/context-task start "X"` | Interview + plan task |
-| `/context-task add P1: X` | Add task to PLAN.md |
-| `/context-task done X` | Mark complete |
-| `/context-task block X` | Mark blocked |
-| `/context-task ready X` | Unblock |
+| `/context-task` | List tasks with numbers |
+| `/context-task start 1` | Start task #1 (quick) |
+| `/context-task start 1 --plan` | Start task #1 with interview |
+| `/context-task add P1: X` | Add new task |
+| `/context-task done` | Complete active task |
+| `/context-task block 1` | Block task #1 |
+| `/context-task ready 1` | Unblock task #1 |
 | `/context-task decide` | Record decision |
-| `/context-task finish` | Archive + clear action plan |
 | `/context-checkpoint` | Save all state |
 
 ## Task Format
@@ -20,34 +20,32 @@
 - [STATUS] P#: Title | context | next: action
 ```
 
-**Status:** `[READY]` `[WIP]` `[BLOCKED]` `[DONE]`
+**Status:** `[READY]` `[WIP]` `[BLOCKED]` `[PAUSED]`
 **Priority:** P0=Critical P1=High P2=Medium P3=Low
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `CURRENT.md` | Session state, next steps |
-| `PLAN.md` | Task list (terse) |
-| `ACTIONPLAN.md` | Active task detail |
-| `BACKLOG.md` | Bugs, debt, ideas |
+| `CURRENT.md` | Session state + active task detail |
+| `PLAN.md` | Task list + backlog |
 
 ## Workflow
 
 ```
-/context-start                    # Begin session
+/context-task                     # See numbered task list
     ↓
-/context-task start "Task"        # Interview → ACTIONPLAN.md
+/context-task start 1             # Start task (or --plan for interview)
     ↓
-[work on subtasks]                # Check off in ACTIONPLAN.md
+[work on task]                    # Check off subtasks in CURRENT.md
     ↓
-/context-task finish              # Archive, mark done
+/context-task done                # Complete, clear active task
     ↓
-/context-checkpoint               # Save state (auto on stop)
+/context-checkpoint               # Save state
 ```
 
 ## On Compaction
 
 1. Run `/context-checkpoint`
-2. Read CURRENT.md + ACTIONPLAN.md
-3. Continue from current subtask
+2. Read CURRENT.md
+3. Continue from Next Steps / current subtask

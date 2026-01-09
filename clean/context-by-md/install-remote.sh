@@ -14,7 +14,7 @@ echo "[*] Installing context-by-md..."
 if [ -d ".context-by-md" ] && [ -f ".context-by-md/CURRENT.md" ]; then
     echo ""
     echo "[!] Existing context-by-md installation detected."
-    echo "    This will overwrite your context files (CURRENT.md, PLAN.md, BACKLOG.md)."
+    echo "    This will overwrite your context files (CURRENT.md, PLAN.md)."
     read -p "    Continue? [y/N] " -n 1 -r
     echo ""
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -24,8 +24,7 @@ if [ -d ".context-by-md" ] && [ -f ".context-by-md/CURRENT.md" ]; then
 fi
 
 # Create directories
-mkdir -p .context-by-md/sessions
-mkdir -p .context-by-md/archive
+mkdir -p .context-by-md
 mkdir -p .claude/commands
 mkdir -p .claude/hooks
 
@@ -33,8 +32,7 @@ mkdir -p .claude/hooks
 echo "Downloading context files..."
 curl -fsSL "$BASE_URL/.context-by-md/CURRENT.md" -o .context-by-md/CURRENT.md
 curl -fsSL "$BASE_URL/.context-by-md/PLAN.md" -o .context-by-md/PLAN.md
-curl -fsSL "$BASE_URL/.context-by-md/BACKLOG.md" -o .context-by-md/BACKLOG.md
-curl -fsSL "$BASE_URL/.context-by-md/sessions/_template.md" -o .context-by-md/sessions/_template.md
+curl -fsSL "$BASE_URL/.context-by-md/QUICKREF.md" -o .context-by-md/QUICKREF.md
 
 # Download Claude commands
 echo "Downloading Claude commands..."
@@ -72,14 +70,13 @@ echo ""
 echo "Context system installed!"
 echo ""
 echo "Files created:"
-echo "  .context-by-md/CURRENT.md    - Active work state"
-echo "  .context-by-md/PLAN.md       - Task tracking"
-echo "  .context-by-md/BACKLOG.md    - Future work"
-echo "  .context-by-md/sessions/     - Session logs"
-echo "  .claude/commands/            - Slash commands"
-echo "  .claude/hooks/               - Auto-checkpoint on stop"
+echo "  .context-by-md/CURRENT.md  - Session state + active task"
+echo "  .context-by-md/PLAN.md     - Task list + backlog"
+echo "  .context-by-md/QUICKREF.md - Command cheat sheet"
+echo "  .claude/commands/          - Slash commands"
+echo "  .claude/hooks/             - Auto-checkpoint reminder"
 echo ""
 echo "Next steps:"
-echo "  1. Edit .context-by-md/CURRENT.md with your project info"
-echo "  2. Add initial tasks to .context-by-md/PLAN.md"
-echo "  3. Tell Claude to run /context-start"
+echo "  1. Add tasks: /context-task add P1: Task | context | next: action"
+echo "  2. Start work: /context-task start 'Task name'"
+echo "  3. Save state: /context-checkpoint"

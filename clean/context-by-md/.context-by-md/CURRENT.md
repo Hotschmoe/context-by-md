@@ -1,35 +1,54 @@
 # Current Context
 
-> **Last Updated:** 2026-01-08 | **Session:** Starting fresh
+> **Last Updated:** — | **Active Task:** _none_
 
-## [*] Active Focus
+## Now
 
 <!-- What you're working on RIGHT NOW. 1-3 items max. -->
 
 _No active work. Ready to begin._
 
-## [-] Immediate Next Steps
+## Next Steps
 
-<!-- Ordered actions. Claude continues from here after compaction. -->
+<!-- Ordered actions. Continue from here after compaction. -->
 
 1. _Waiting for direction_
 
-## [!] Critical Context
+## Active Task
 
-<!-- MUST NOT be lost across compaction. Decisions, constraints, WIP state. -->
+<!-- Populated by /context-task start. Cleared by /context-task finish. -->
 
-- Project: _[describe]_
-- Key constraints: _[blockers, requirements]_
-- Decisions: _[things decided this session]_
+**Task:** _none_ | **Status:** — | **Started:** —
 
-## [~] Key Resources
+### Goal
+_Not yet defined._
 
-<!-- Currently relevant files, docs, URLs -->
+### Scope
+**In:** _items_
+**Out:** _items_
 
-- _path/to/relevant/file_
+### Constraints
+_None identified._
 
-## [...] Session Notes
+### Subtasks
+- [ ] _subtask_
 
-<!-- Scratch space during session. Moved to session log at end. -->
+### Decisions
+| Decision | Choice | Why | Date |
+|----------|--------|-----|------|
+
+---
+
+## Context
+
+<!-- Critical info that must survive compaction. Key files, decisions, blockers. -->
+
+- Project: _describe_
+- Key files: _paths_
+- Blockers: _none_
+
+## Notes
+
+<!-- Scratch space during session. -->
 
 _Session started._
