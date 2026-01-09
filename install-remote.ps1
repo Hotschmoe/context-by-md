@@ -25,6 +25,7 @@ if ((Test-Path ".context-by-md") -and (Test-Path ".context-by-md\CURRENT.md")) {
 New-Item -ItemType Directory -Force -Path ".context-by-md\sessions" | Out-Null
 New-Item -ItemType Directory -Force -Path ".context-by-md\archive" | Out-Null
 New-Item -ItemType Directory -Force -Path ".claude\commands" | Out-Null
+New-Item -ItemType Directory -Force -Path ".claude\hooks" | Out-Null
 
 # Download context files
 Write-Host "Downloading context files..."
@@ -39,7 +40,12 @@ Invoke-RestMethod "$BaseUrl/.claude/commands/context-start.md" -OutFile ".claude
 Invoke-RestMethod "$BaseUrl/.claude/commands/context-checkpoint.md" -OutFile ".claude\commands\context-checkpoint.md"
 Invoke-RestMethod "$BaseUrl/.claude/commands/context-task.md" -OutFile ".claude\commands\context-task.md"
 
-# Download or merge settings
+# Download hooks (PowerShell versions for Windows)
+Write-Host "Downloading hooks..."
+Invoke-RestMethod "$BaseUrl/.claude/hooks/context-start.ps1" -OutFile ".claude\hooks\context-start.ps1"
+Invoke-RestMethod "$BaseUrl/.claude/hooks/context-stop.ps1" -OutFile ".claude\hooks\context-stop.ps1"
+
+# Download or merge settings (Windows version with PowerShell hooks)
 if (Test-Path ".claude\settings.local.json") {
     Write-Host "  .claude\settings.local.json exists - please manually add hooks" -ForegroundColor Yellow
     Write-Host "   See $BaseUrl/.claude/settings.local.json for reference" -ForegroundColor Yellow
