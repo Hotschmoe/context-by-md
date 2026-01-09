@@ -33,6 +33,7 @@ Invoke-RestMethod "$BaseUrl/.context-by-md/CURRENT.md" -OutFile ".context-by-md\
 Invoke-RestMethod "$BaseUrl/.context-by-md/PLAN.md" -OutFile ".context-by-md\PLAN.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/ACTIONPLAN.md" -OutFile ".context-by-md\ACTIONPLAN.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/BACKLOG.md" -OutFile ".context-by-md\BACKLOG.md"
+Invoke-RestMethod "$BaseUrl/.context-by-md/QUICKREF.md" -OutFile ".context-by-md\QUICKREF.md"
 Invoke-RestMethod "$BaseUrl/.context-by-md/sessions/_template.md" -OutFile ".context-by-md\sessions\_template.md"
 
 # Download Claude commands
@@ -71,11 +72,11 @@ Write-Host ""
 Write-Host "Context system installed!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Files created:"
+Write-Host "  .context-by-md\QUICKREF.md   - Command cheat sheet"
 Write-Host "  .context-by-md\CURRENT.md    - Session state"
 Write-Host "  .context-by-md\PLAN.md       - Task list (terse)"
 Write-Host "  .context-by-md\ACTIONPLAN.md - Active task detail"
 Write-Host "  .context-by-md\BACKLOG.md    - Bugs, debt, ideas"
-Write-Host "  .context-by-md\sessions\     - Session logs"
 Write-Host "  .claude\commands\            - Slash commands"
 Write-Host "  .claude\hooks\               - Auto-checkpoint on stop"
 Write-Host ""
